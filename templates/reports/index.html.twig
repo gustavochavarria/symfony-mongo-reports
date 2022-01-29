@@ -1,0 +1,106 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ReportsController!{% endblock %}
+
+
+{% block stylesheets %}
+    <style>
+        body {
+            background:white;
+        }
+
+        .block {
+            margin: 8px 0px 8px 0px;
+        }
+
+        .input__account__id,
+        .input__account__id:hover,
+        .input__account__id:focus,
+        .input__account__id:active {
+            font-size: 14px;
+            border:none;
+            border-bottom: 1px solid gray;
+            outline: none;
+        }
+
+        .input__account__id:focus {
+            border:none;
+            border-bottom: 1px solid rgba(96,199,176, 0.5);
+            outline: none;
+        }
+
+        .btn__default {
+            color: white;
+            background-color: rgb(96,199,176);
+            border:none;
+            padding: 8px 10px;
+            cursor: pointer;
+        }
+
+        table {
+            font-variant-numeric: lining-nums tabular-nums;
+            border-collapse: collapse;
+            width: 100%;
+            max-width: 100%;
+            overflow: initial;
+        }
+
+        table th,
+        table td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #e2e8f0;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        table th {
+            background-color: white;
+            color: black;
+        }
+    </style>
+{% endblock stylesheets %}
+
+{% block body %}
+
+
+    <main>
+        <h1>Report Controller!</h1>
+
+        <div class="block">
+            <input placeholder="Account ID" class="input__account__id">
+        </div>
+        <div class="block">
+            <button class="btn__default" title="show only data with this account id">GET DATA</button>
+            <button class="btn__default" title="show all elements">SHOW ALL</button>
+        </div>
+
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Account Name</th>
+                        <th>Account ID</th>
+                        <th>Spend</th>
+                        <th>Clicks</th>
+                        <th>Impressions</th>
+                        <th>Cost per Click</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>Account Name</td>
+                        <td>Account ID</td>
+                        <td>Spend</td>
+                        <td>Spend</td>
+                        <td>Spend</td>
+                        <td>Spend</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+
+    </main>
+{% endblock %}
