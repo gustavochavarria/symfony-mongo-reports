@@ -57,54 +57,64 @@
             background-color: white;
             color: black;
         }
+
+        .not__found {
+            color: gray;
+            font-size: 24px;
+            text-align: center;
+            padding: 14px 0px;
+        }
     </style>
 {% endblock stylesheets %}
 
 {% block body %}
-
-
     <main>
         <h1>Report Controller!</h1>
 
-        <div class="block">
-            <input placeholder="Account ID" class="input__account__id">
-        </div>
-        <div class="block">
-            <button class="btn__default" title="show only data with this account id">GET DATA</button>
-            <button class="btn__default" title="show all elements">SHOW ALL</button>
-        </div>
+        <form action="{{ url('reports') }}" method="post">
+            <div class="block">
+                <input placeholder="Account ID" class="input__account__id" name="accountId">
+            </div>
+            <div class="block">
+                <button class="btn__default" title="show only data with this account id" type="submit" name="getData" value="true">GET DATA</button>
+                <button class="btn__default" title="show all elements" type="submit" name="getAll" value="true">SHOW ALL</button>
+            </div>
+        </form>
 
         <div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Account Name</th>
-                        <th>Account ID</th>
-                        <th>Spend</th>
-                        <th>Clicks</th>
-                        <th>Impressions</th>
-                        <th>Cost per Click</th>
-                    </tr>
-                </thead>
+            {%  if accounts %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Account Name</th>
+                            <th>Account ID</th>
+                            <th>Spend</th>
+                            <th>Clicks</th>
+                            <th>Impressions</th>
+                            <th>Cost per Click</th>
+                        </tr>
+                    </thead>
 
-                <tbody>
+                    <tbody>
+                        {% for account in accounts %}
+                            <tr>
+                                <td>{{ account.accountName }}</td>
+                                <td>{{ account.accountId }}</td>
+                                <td>{{ account['metrics'][0]['totalSpend'] ?? '' }}</td>
+                                <td>{{ account['metrics'][0]['totalClicks'] ?? '' }}</td>
+                                <td>{{ account['metrics'][0]['totalImpressions'] ?? '' }}</td>
+                                <td>{{ account['metrics'][0]['costPerClick'] ?? '' }}</td>
+                            </tr>
 
-                {% for account in accounts %}
-                    <tr>
-                        <td>{{ account.accountName }}</td>
-                        <td>{{ account.accountId }}</td>
-                        <td>{{ account['metrics'][0]['totalSpend'] ?? '' }}</td>
-                        <td>{{ account['metrics'][0]['totalClicks'] ?? '' }}</td>
-                        <td>{{ account['metrics'][0]['totalImpressions'] ?? '' }}</td>
-                        <td>{{ account['metrics'][0]['costPerClick'] ?? '' }}</td>
-                    </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
 
-                {% endfor %}
+                <div class="not__found"> Account not found </div>
 
-                </tbody>
-            </table>
+            {% endif %}
         </div>
-
 
     </main>
 {% endblock %}

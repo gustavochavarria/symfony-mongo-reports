@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -15,24 +16,27 @@ class ReportsController extends AbstractController
     /**
      * @Route("/reports", name="reports")
      */
-    public function index(): Response
+    public function index(Request $request): Response
     {
+        $searchByAccount = $request->get('getData') && $request->get('accountId');
 
         $client = new Mongo(CLIENTURI);
         $collection = $client->selectCollection('demo-db', 'Accounts');
 
+        $match = ['status' => 'ACTIVE'];
+
+        if($searchByAccount) {
+            $match = array_merge($match, ['accountId' => trim($request->get('accountId'))]);
+        }
+
         $accounts = $collection
             ->aggregate([
                 [
-                    '$match' => [
-                        'status' => 'ACTIVE'
-                    ],
+                    '$match' => $match,
                 ],
                 [
                     '$lookup' => [
                         'from' => 'Metrics',
-//                        'localField' => 'accountId',
-//                        'foreignField' => 'accountId',
                         'as' => 'metrics',
                         'let' => ['accountId' => '$accountId'],
                         'pipeline' => [
@@ -98,4 +102,7 @@ class ReportsController extends AbstractController
             'accounts' => $accounts,
         ]);
     }
+
+
+
 }
