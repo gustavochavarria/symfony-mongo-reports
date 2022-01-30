@@ -85,6 +85,9 @@
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.5"
     },
+    "jean85/pretty-package-versions": {
+        "version": "2.0.5"
+    },
     "laminas/laminas-code": {
         "version": "3.4.1"
     },
@@ -93,6 +96,9 @@
     },
     "laminas/laminas-zendframework-bridge": {
         "version": "1.4.1"
+    },
+    "mongodb/mongodb": {
+        "version": "1.11.0"
     },
     "monolog/monolog": {
         "version": "2.3.5"
