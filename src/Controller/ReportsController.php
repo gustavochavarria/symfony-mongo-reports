@@ -14,7 +14,7 @@ const CLIENTURI = "mongodb+srv://tavo:LMoPUco6LFRFCKQb@cluster-demo-db.bj8gw.mon
 class ReportsController extends AbstractController
 {
     /**
-     * @Route("/reports", name="reports")
+     * @Route("/", name="reports")
      */
     public function index(Request $request): Response
     {
