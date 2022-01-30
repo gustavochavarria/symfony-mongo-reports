@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ReportsController!{% endblock %}
+{% block title %}ReportsController!{% endblock %}
 
 
 {% block stylesheets %}
@@ -88,14 +88,18 @@
                 </thead>
 
                 <tbody>
+
+                {% for account in accounts %}
                     <tr>
-                        <td>Account Name</td>
-                        <td>Account ID</td>
-                        <td>Spend</td>
-                        <td>Spend</td>
-                        <td>Spend</td>
-                        <td>Spend</td>
+                        <td>{{ account.accountName }}</td>
+                        <td>{{ account.accountId }}</td>
+                        <td>{{ account['metrics'][0]['totalSpend'] ?? '' }}</td>
+                        <td>{{ account['metrics'][0]['totalClicks'] ?? '' }}</td>
+                        <td>{{ account['metrics'][0]['totalImpressions'] ?? '' }}</td>
+                        <td>{{ account['metrics'][0]['costPerClick'] ?? '' }}</td>
                     </tr>
+
+                {% endfor %}
 
                 </tbody>
             </table>
